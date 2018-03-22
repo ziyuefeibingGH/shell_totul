@@ -1,0 +1,7 @@
+dns
+www
+test
+dev
+mail
+rdp
+remote
