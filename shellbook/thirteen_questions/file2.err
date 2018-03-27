@@ -1,0 +1,2 @@
+ls: cannot access my.file: No such file or directory
+./redirect.sh
