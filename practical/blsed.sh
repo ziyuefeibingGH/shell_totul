@@ -26,7 +26,7 @@ do
 
 	# first line is different 
 	sed -n '1p' $1 | awk '{printf("\t\t%d\t%d\t%d\t\t\n", $'$capacity_v', $'$voltage_v', $'$resistance_v')}'  > $logfile
-	sed -n '1p' $1 | awk "{printf(\"\t\t%d\t%d\t%d\t\t\n\", \$$capacity_v, \$$voltage_v, \$$resistance_v)}"
+	#sed -n '1p' $1 | awk "{printf(\"\t\t%d\t%d\t%d\t\t\n\", \$$capacity_v, \$$voltage_v, \$$resistance_v)}"
 	# from second line, determine capacity and voltage of the battery is consistent
 	# sort -n: sort, -u: delect repetition, -k 1: operation first column
 
@@ -52,11 +52,13 @@ do
 	# count parameter number
 	t_parameter_num=`wc -l $tempfile | awk '{printf("%d", $1)}'`
 	let t_parameter_num=$t_parameter_num-2
+	sed -n "$((t_parameter_num+1))p" $tempfile
 
 	# modify parameter numbera in targetfile
 	let linegg=`sed -n '/battery_profile_t'$tempperature_num'[[:space:]]*=/=' $targetfile`
 	let line_num=$linegg-1
-	sed -i ''$line_num's/<[0-9]*>/<'$t_parameter_num'>/' $targetfile
+	sed -i ''$line_num's/<[[:space:]]*[0-9]*[[:space:]]*>/<'$t_parameter_num'>/' $targetfile
+	echo "line_num=$line_num ,$linegg, battery_profile_t'$tempperature_num'=$t_parameter_num"
 
 	# delect old parameter in targetfile
 	sed -i -e '/battery_profile_t'$tempperature_num'[[:space:]]*=/,/>;/d' $targetfile
@@ -75,10 +77,11 @@ do
 	sed -i -e '/r_profile_t'$tempperature_num'[[:space:]]*=/,/>;/d' $targetfile
 
 	let line_num=$linegg-1
-	sed -i ''$line_num's/<[0-9]*>/<'$t_parameter_num'>/' $targetfile
+	#echo "line_num=$line_num ,lineg=$linegg, r_profile_t'$tempperature_num'=$t_parameter_num"
+	sed -i ''$line_num's/<[[:space:]]*[0-9]*[[:space:]]*>/<'$t_parameter_num'>/' $targetfile
+	#sed -n "${line_num}p" $targetfile
 
 	let linegg=$linegg-1
-	echo $linegg
 
 	sed -i ''$linegg'{r '$tempfile'
 	}' $targetfile
