@@ -17,7 +17,7 @@ echo $PREV_FILEPATH
 if [ -e $PREV_FILEPATH ]
 # file exists 
 then
-	OLD_LUNCH_OPTION=$(sed -nr "{s/.*(:=[[:space:]])(.*)(-\{).*/\2/;p}" $PREV_FILEPATH)
+	OLD_LUNCH_OPTION=$(sed -nr "{s/.*(:=[[:space:]])(.*)(-\{).*/\2/p}" $PREV_FILEPATH)
 	echo $1
 	case "$1" in
 		# if specified option
