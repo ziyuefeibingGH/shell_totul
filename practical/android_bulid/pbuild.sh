@@ -3,6 +3,8 @@
 # when android build fw, first need source env, just for source
 #
 
+for LIST_PARA_TEMP; do true; done
+
 SOURCE_EXECPATH=$(pwd)
 
 # source android envsetup.sh
@@ -36,3 +38,21 @@ else
 	lunch
 fi
 
+unset SOURCE_EXECPATH
+unset PREV_FILEPATH
+unset OLD_LUNCH_OPTION
+unset NEW_LUNCH_OPTION
+
+case $LIST_PARA_TEMP in
+	'b'|'s'|'d'|'l'|'p'|'pl'|'lb'|'plb')
+		echo "build $LIST_PARA_TEMP"
+		if test -e make_image.sh
+		then
+			./make_image.sh $LIST_PARA_TEMP
+		fi
+		;;
+	*)
+		echo "nothing"
+		;;
+esac
+unset LIST_PARA_TEMP
