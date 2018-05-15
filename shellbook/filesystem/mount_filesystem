@@ -1,0 +1,22 @@
+#!/bin/bash
+mount -t ext4 /dev/sda2 /mnt/
+mount | grep sda2
+mount -n -o remount, rw /		# modify rw property
+
+dmesg | grep /dev/sd
+# mount udisk
+mount -t vfat /dev/sdN /orange/caichangbing/personal/shell_tutor/shellbook/filesystem/mnt_udisk
+
+# mount a iso file
+mount -t iso9660 /orange/caichangbing/personal/shell_tutor/shellbook/filesystem/mnt_iso
+
+# mount a nfs filesystem
+mount -t nfs remount_ip:/patch/to/share_directory	/patch/to/mnt_nfs
+
+# mount a proc filesystem
+mount -t proc proc /proc
+
+# mount a dir
+mount --bind /patch/to/needtomount_directory /patch/to/mnt_dir
+
+
