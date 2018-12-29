@@ -10,6 +10,11 @@ SOURCE_EXECPATH=$(pwd)
 # source android envsetup.sh
 source $SOURCE_EXECPATH/build/envsetup.sh
 
+if test -e 1.nev
+then
+	echo "source 1.nev"
+	source 1.nev
+fi
 # achieve prev*.mk path, not use ls, because in my .bashrc: 
 # alias ls='ls --color=auto'
 PREV_FILEPATH=$(file $(pwd)/out/target/product/*/previous_build_config.mk | grep -v "generic" )
@@ -19,7 +24,7 @@ echo $PREV_FILEPATH
 if [ -e $PREV_FILEPATH ]
 # file exists 
 then
-	OLD_LUNCH_OPTION=$(sed -nr "{s/.*(:=[[:space:]])(.*)(-\{).*/\2/p}" $PREV_FILEPATH)
+	OLD_LUNCH_OPTION=$(sed -nr "{s/.*(:=[[:space:]])(.+-[a-z]+).*/\2/p}" $PREV_FILEPATH)
 	echo $1
 	case "$1" in
 		# if specified option
