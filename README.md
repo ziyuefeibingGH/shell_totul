@@ -1,7 +1,7 @@
 # shell_totul
 for learn shell scripts
 
-shellboo
+shellbook
 
 shellbook:
 read book from  https://legacy.gitbook.com/book/tinylab/shellbook/details
